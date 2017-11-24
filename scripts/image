@@ -165,6 +165,7 @@ $SCRIPTS/install network
 
 # Sound support
 [ "$ALSA_SUPPORT" = "yes" ] && $SCRIPTS/install alsa
+[ "$ALSA_SUPPORT" = "yes" ] && $SCRIPTS/install rt-plugins
 
 # Automounter support
 [ "$UDEVIL" = "yes" ] && $SCRIPTS/install udevil
