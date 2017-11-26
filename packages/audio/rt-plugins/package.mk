@@ -37,9 +37,10 @@ PKG_ADDON_REQUIRES=""
 # package specific configure options
 PKG_CONFIGURE_OPTS_TARGET=""
 
-LADSPA_HEADER_DIR=$PWD/build.LibreELEC-Odroid_C2.aarch64-8.2.1/alsa-lib-1.1.4.1/src/pcm/
+LADSPA_HEADER_DIR=$PWD/build.LibreELEC-$PROJECT.$ARCH-8.2.1/alsa-lib-1.1.4.1/src/pcm/
 
 pre_configure_target() {
   export CFLAGS="$CFLAGS -I $LADSPA_HEADER_DIR"		# avoid installing ladspa-sdk
   export CFLAGS="$CFLAGS -w"				# avoid compiler-warning about inline
 }
+
