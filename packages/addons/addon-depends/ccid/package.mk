@@ -1,6 +1,7 @@
 ################################################################################
 #      This file is part of LibreELEC - https://libreelec.tv
-#      Copyright (C) 2016-present Team LibreELEC
+#      Copyright (C) 2017-present Team LibreELEC
+#      Copyright (C) 2009-2012 Stephan Raue (stephan@openelec.tv)
 #
 #  LibreELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,26 +17,21 @@
 #  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="squeezelite"
-PKG_VERSION="e92c09c"
+PKG_NAME="ccid"
+PKG_VERSION="1.4.28"
 PKG_ARCH="any"
-PKG_LICENSE="GPLv3"
-PKG_SITE="https://github.com/ralph-irving/squeezelite"
-PKG_URL="https://github.com/ralph-irving/squeezelite/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain faad2 ffmpeg flac libmad libvorbis mpg123 soxr libogg"
-PKG_SECTION="tools"
-PKG_SHORTDESC="squeezelite"
-PKG_LONGDESC="A client for the Logitech Media Server"
+PKG_LICENSE="LGPL"
+PKG_SITE="http://pcsclite.alioth.debian.org/ccid.html"
+PKG_URL="https://alioth.debian.org/frs/download.php/latestfile/112/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
+PKG_DEPENDS_TARGET="toolchain pcsc-lite"
+PKG_SECTION="driver"
+PKG_SHORTDESC="CCID free software driver"
+PKG_LONGDESC="CCID free software driver"
+PKG_AUTORECONF="yes"
 
-PKG_IS_ADDON="no"
-PKG_AUTORECONF="no"
+PKG_CONFIGURE_OPTS_TARGET="--enable-static --enable-twinserial"
 
-pre_make_target() {
-  OPTS="-DDSD -DFFMPEG -DRESAMPLE -DVISEXPORT -DLINKALL"
-  CFLAGS="$CFLAGS $OPTS"
-  LDFLAGS="$LDFLAGS -lasound -lpthread -lm -lrt -lFLAC -lmad -lvorbisfile -lfaad -lmpg123 -lvorbis -logg"
-}
-
-makeinstall_target() {
-  :
+make_target() {
+  make
+  make -C src/ Info.plist
 }
