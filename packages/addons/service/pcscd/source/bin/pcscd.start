@@ -1,6 +1,9 @@
+#!/bin/sh
+
 ################################################################################
 #      This file is part of LibreELEC - https://libreelec.tv
-#      Copyright (C) 2016-present Team LibreELEC
+#      Copyright (C) 2017-present Team LibreELEC
+#      Copyright (C) 2009-2012 Stephan Raue (stephan@openelec.tv)
 #
 #  LibreELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,26 +19,16 @@
 #  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="squeezelite"
-PKG_VERSION="e92c09c"
-PKG_ARCH="any"
-PKG_LICENSE="GPLv3"
-PKG_SITE="https://github.com/ralph-irving/squeezelite"
-PKG_URL="https://github.com/ralph-irving/squeezelite/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain faad2 ffmpeg flac libmad libvorbis mpg123 soxr libogg"
-PKG_SECTION="tools"
-PKG_SHORTDESC="squeezelite"
-PKG_LONGDESC="A client for the Logitech Media Server"
+. /etc/profile
 
-PKG_IS_ADDON="no"
-PKG_AUTORECONF="no"
+oe_setup_addon service.pcscd
 
-pre_make_target() {
-  OPTS="-DDSD -DFFMPEG -DRESAMPLE -DVISEXPORT -DLINKALL"
-  CFLAGS="$CFLAGS $OPTS"
-  LDFLAGS="$LDFLAGS -lasound -lpthread -lm -lrt -lFLAC -lmad -lvorbisfile -lfaad -lmpg123 -lvorbis -logg"
-}
+mkdir -p $ADDON_HOME/config
 
-makeinstall_target() {
-  :
-}
+chmod a+x $ADDON_DIR/bin/*
+
+if [ ! -f "$ADDON_HOME/config/reader.conf" ]; then
+  cp $ADDON_DIR/config/reader.conf $ADDON_HOME/config/reader.conf
+fi
+
+exec pcscd.bin --foreground -c $ADDON_HOME/config/reader.conf

@@ -1,6 +1,8 @@
+ 
+ 
 ################################################################################
 #      This file is part of LibreELEC - https://libreelec.tv
-#      Copyright (C) 2016-present Team LibreELEC
+#      Copyright (C) 2009-2016 Lukas Rusak (lrusak@libreelec.tv)
 #
 #  LibreELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,26 +18,22 @@
 #  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="squeezelite"
-PKG_VERSION="e92c09c"
+PKG_NAME="fftw"
+PKG_VERSION="3.3.7"
+PKG_REV="114"
 PKG_ARCH="any"
-PKG_LICENSE="GPLv3"
-PKG_SITE="https://github.com/ralph-irving/squeezelite"
-PKG_URL="https://github.com/ralph-irving/squeezelite/archive/$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain faad2 ffmpeg flac libmad libvorbis mpg123 soxr libogg"
-PKG_SECTION="tools"
-PKG_SHORTDESC="squeezelite"
-PKG_LONGDESC="A client for the Logitech Media Server"
-
-PKG_IS_ADDON="no"
+PKG_ADDON_PROJECTS="Generic RPi RPi2 imx6 WeTek_Hub WeTek_Play_2 Odroid_C2"
+PKG_LICENSE="Proprietary"
+PKG_SITE="http://www.fftw.org"
+PKG_URL="http://www.fftw.org/fftw-3.3.7.tar.gz"
+PKG_SOURCE_DIR="$PKG_NAME-$PKG_VERSION"
+PKG_DEPENDS_TARGET="toolchain"
+PKG_SECTION="service/system"
+PKG_SHORTDESC="BruteFIR software convolution engine"
+PKG_LONGDESC="BruteFIR is a software convolution engine, a program for applying long FIR filters to multi-channel digital audio, either offline or in realtime."
 PKG_AUTORECONF="no"
 
-pre_make_target() {
-  OPTS="-DDSD -DFFMPEG -DRESAMPLE -DVISEXPORT -DLINKALL"
-  CFLAGS="$CFLAGS $OPTS"
-  LDFLAGS="$LDFLAGS -lasound -lpthread -lm -lrt -lFLAC -lmad -lvorbisfile -lfaad -lmpg123 -lvorbis -logg"
-}
+PKG_IS_ADDON="yes"
+PKG_ADDON_NAME="BruteFIR"
+PKG_ADDON_TYPE="xbmc.service"
 
-makeinstall_target() {
-  :
-}
