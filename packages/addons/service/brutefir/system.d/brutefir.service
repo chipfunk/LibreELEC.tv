@@ -1,0 +1,15 @@
+[Unit]
+Description=BruteFIR - the software convolution engine
+Documentation=https://www.ludd.ltu.se/~torger/brutefir.html
+After=network.target
+Requires=network.target
+
+[Service]
+Type=forking
+ExecStart=/storage/.kodi/addons/service.system.brutefir/bin/brutefir
+Restart=on-failure
+SuccessExitStatus=3 4
+RestartForceExitStatus=3 4
+
+[Install]
+WantedBy=kodi.target
