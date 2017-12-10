@@ -1,9 +1,13 @@
+# rt-plugins
+
+http://faculty.tru.ca/rtaylor/rt-plugins/index.html
+
+
 ## Pulseaudio integration
 
 The integration for the LADSPA-plugins is realized by using the pulseaudio-module "module-ladspa-sink".
 
-An example for a two-way crossover is shown in the example below. Setting up pulseaudio has to be done in "reverse order", walking the audio-path backwards from sound-card to source, making sure the required sinks are known to pulseaudio when referenceing them.
-
+An example for a two-way crossover is shown in the example below. Setting up pulseaudio has to be done in "reverse order", walking the audio-path backwards from sound-card to source, making sure the required sinks are known to pulseaudio when referencing them.
 
     # loading alsa-module to create target-sink "alsa_output.plughw_1_0"
     pactl load-module module-alsa-sink device=plughw:1,0 tsched=0
@@ -20,7 +24,12 @@ An example for a two-way crossover is shown in the example below. Setting up pul
     # set sink "two_way_crossover" to be used by default
     pactl set-default-sink two_way_crossover
     
-    
+
+To apply the settings on startup place the above code in
+
+    /storage/.config/autostart.sh
+
+
 ### Filter-examples
 
 The following code shows how to load the provided LADSPA-plugins into your pulseaudio-setup.
